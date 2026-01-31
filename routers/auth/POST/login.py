@@ -33,6 +33,18 @@ def login(data: LoginRequest):
     if not session or not getattr(session, "session", None):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
+    # Guardar el refresh token en la tabla user_tokens (si existe)
+    refresh_token = getattr(session.session, "refresh_token", None)
+    if refresh_token:
+        try:
+            supabase.table("user_tokens").insert({
+                "user_id": user_id,
+                "token": refresh_token
+            }).execute()
+        except Exception as e:
+            # No bloquea el login si falla el guardado del token
+            print(f"Error guardando refresh token: {e}")
+
     return LoginResponse(
         access_token=session.session.access_token
     )
