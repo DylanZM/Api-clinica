@@ -1,8 +1,8 @@
 from routers.auth.POST import login, register
-from core.supabase import supabase
-
+from routers.users.POST import create_user
 
 all_routers = [
     login.router,
     register.router,
+    create_user.router
 ]
