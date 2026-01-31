@@ -21,10 +21,10 @@ def create_user(data: CreateUserRequest, current_role: str = Depends(get_current
     elif current_role == "assistant":
         allowed_roles = ["patient"]
     else:
-        raise HTTPException(status_code=403, detail="No autorizado para crear usuarios")
+        raise HTTPException(status_code=403, detail="Not authorized to create users")
 
     if data.role not in allowed_roles:
-        raise HTTPException(status_code=400, detail="Rol no permitido para este usuario")
+        raise HTTPException(status_code=400, detail="Role not allowed for this user")
 
     try:
         auth_user = supabase.auth.sign_up({
@@ -32,7 +32,7 @@ def create_user(data: CreateUserRequest, current_role: str = Depends(get_current
             "password": data.password
         })
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error en Supabase Auth: {str(e)}")
+        raise HTTPException(status_code=400, detail=f"Error in Supabase Auth: {str(e)}")
     try:
         user_insert = supabase.table("users").insert({
             "id": auth_user.user.id,
@@ -42,5 +42,5 @@ def create_user(data: CreateUserRequest, current_role: str = Depends(get_current
         }).execute()
     except Exception as e:
         supabase.auth.admin.delete_user(auth_user.user.id)
-        raise HTTPException(status_code=400, detail=f"Error en tabla users: {str(e)}")
-    return {"status": "Usuario creado", "user_id": auth_user.user.id}
+        raise HTTPException(status_code=400, detail=f"Error in users table: {str(e)}")
+    return {"status": "User created", "user_id": auth_user.user.id}
