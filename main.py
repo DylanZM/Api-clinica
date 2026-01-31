@@ -17,16 +17,14 @@ app = FastAPI(
 for router in all_routers:
     app.include_router(router)
 
-
 @app.get("/")
 def root():
-    return {"status": "API clinic activated"}
-
+    return {"status": "Welcome api clinic"}
 
 @app.get("/health")
 def health_check():
     try:
         supabase.auth.get_user()
-        return {"status": "Conected to supabase"}
+        return {"status": "Connected to supabase"}
     except Exception as e:
         return {"status": "Connection error", "error": str(e)}
