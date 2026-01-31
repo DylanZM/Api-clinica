@@ -35,10 +35,10 @@ def create_user(data: CreateUserRequest, current_role: str = Depends(get_current
         raise HTTPException(status_code=400, detail=f"Error in Supabase Auth: {str(e)}")
     try:
         user_insert = supabase.table("users").insert({
-            "id": auth_user.user.id,
             "username": data.username,
             "role": data.role,
-            "email": data.email
+            "email": data.email,
+            "auth_id": auth_user.user.id  
         }).execute()
     except Exception as e:
         supabase.auth.admin.delete_user(auth_user.user.id)

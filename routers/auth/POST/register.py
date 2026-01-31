@@ -24,10 +24,10 @@ def register(data: RegisterRequest):
 
     try:
         user_insert = supabase.table("users").insert({
-            "id": auth_user.user.id,
             "username": data.username,
             "role": data.role,
-            "email": data.email
+            "email": data.email,
+            "auth_id": auth_user.user.id
         }).execute()
     except Exception as e:
      
