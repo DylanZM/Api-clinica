@@ -1,23 +1,26 @@
-
 from fastapi import FastAPI
 from supabase import create_client, Client
 from dotenv import load_dotenv
 import os
+from routers import all_routers
 
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = FastAPI(
-    title="API Clínica",
+    title="API clinic",
 )
+
+for router in all_routers:
+    app.include_router(router)
 
 
 @app.get("/")
 def root():
-    return {"status": "API Clinic activated"}
+    return {"status": "API clinic activated"}
 
 
 @app.get("/health")
