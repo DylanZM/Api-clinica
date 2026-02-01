@@ -15,6 +15,7 @@ from routers.appointments.GET import appointments as appointments_all
 from routers.appointments.POST import appointments as appointments_create
 from routers.appointments.PUT import update_appointment
 from routers.appointments.DELETE import delete_appointment
+from routers.stats.GET import stats
 
 all_routers = [
     login.router,
@@ -36,5 +37,6 @@ all_routers = [
     appointments_all.router,
     appointments_create.router,
     update_appointment.router,
-    delete_appointment.router
+    delete_appointment.router,
+    stats.router
 ]
