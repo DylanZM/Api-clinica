@@ -10,7 +10,7 @@ from routers.medical_records.GET import record
 from routers.consultations.GET import consultations as consultations_get
 from routers.consultations.GET import get_consultation
 from routers.consultations.POST import consultations as consultations_post
-from routers.appointments.GET import appointments as appointments 
+from routers.appointments.GET import appointment
 
 
 
@@ -30,5 +30,5 @@ all_routers = [
     consultations_get.router,
     consultations_post.router,
     get_consultation.router,
-    appointments.router
+    appointment.router
 ]
