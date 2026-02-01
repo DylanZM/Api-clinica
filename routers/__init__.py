@@ -13,7 +13,7 @@ from routers.consultations.POST import consultations as consultations_post
 from routers.appointments.GET import appointment as appointment_get
 from routers.appointments.GET import appointments as appointments_all
 from routers.appointments.POST import appointments as appointments_create
-
+from routers.appointments.PUT import update_appointment
 
 
 all_routers = [
@@ -34,5 +34,6 @@ all_routers = [
     get_consultation.router,
     appointment_get.router,
     appointments_all.router,
-    appointments_create.router
+    appointments_create.router,
+    update_appointment.router
 ]
