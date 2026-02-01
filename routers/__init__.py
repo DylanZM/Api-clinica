@@ -7,11 +7,12 @@ from routers.patients.GET import list_patients,get_patient
 from routers.patients.POST import patients
 from routers.patients.PUT import update_patient
 from routers.medical_records.GET import record
-
-# Importar routers de consultas con alias para evitar conflicto de nombres
 from routers.consultations.GET import consultations as consultations_get
 from routers.consultations.GET import get_consultation
 from routers.consultations.POST import consultations as consultations_post
+from routers.appointments.GET import appointments as appointments 
+
+
 
 all_routers = [
     login.router,
@@ -28,5 +29,6 @@ all_routers = [
     record.router,
     consultations_get.router,
     consultations_post.router,
-    get_consultation.router
+    get_consultation.router,
+    appointments.router
 ]
