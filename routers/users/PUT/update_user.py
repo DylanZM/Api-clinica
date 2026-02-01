@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from core.supabase import supabase
 from fastapi import APIRouter, HTTPException
 
+
 router = APIRouter(prefix="/users", tags=["Users"])
 
 class UpdateUserRequest(BaseModel):
