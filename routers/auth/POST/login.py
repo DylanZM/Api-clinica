@@ -9,7 +9,7 @@ def login(data: LoginRequest):
     user_resp = (
         supabase
         .table("users")
-        .select("id, email")
+        .select("id, email, role")
         .eq("username", data.username)
         .single()
         .execute()
@@ -21,6 +21,7 @@ def login(data: LoginRequest):
     user_data = user_resp.data
     user_id = user_data.get("id")
     email = user_data.get("email")
+    role = user_data.get("role")
 
     if not user_id or not email:
         raise HTTPException(status_code=401, detail="Invalid credentials")
@@ -46,5 +47,12 @@ def login(data: LoginRequest):
             print(f"Error guardando refresh token: {e}")
 
     return LoginResponse(
-        access_token=session.session.access_token
+        access_token=session.session.access_token,
+
+                user={ 
+            "id":user_id,
+            "email": email,
+            "role": role
+        }
     )
+    

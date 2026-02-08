@@ -3,6 +3,7 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 import os
 from routers import all_routers
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -14,8 +15,20 @@ app = FastAPI(
     title="API clinic",
 )
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Tu frontend Next.js
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos (GET, POST, OPTIONS, etc.)
+    allow_headers=["*"],  # Permite todos los headers
+)
+
+
 for router in all_routers:
     app.include_router(router)
+
+
 
 @app.get("/")
 def root():
